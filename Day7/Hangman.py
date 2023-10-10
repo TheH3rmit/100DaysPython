@@ -1,12 +1,7 @@
 import random
 
-word_list = ["shark", "monkey", "hawk"]
 
-life = 6
-# Choosing random word as answer
-index = random.randint(0, len(word_list) - 1)
-answer = word_list[index]
-
+# Stages for hangman to display
 stages = ["  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
 
         "  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========",
@@ -40,15 +35,16 @@ def draw_hangman(stage):
             print(stages[6])
 
 
-# Generating visualisation of answer lenght with underscore
-def generate_spaces(lenght: int) -> list:
+# Generating visualisation of answer lenght with underscore and returns it
+def generate_underscore_list(lenght: int) -> list:
     generated_space = []
     for n in range(lenght):
         generated_space.append('_')
     return generated_space
 
 
-def new_round(guessed_letters: list) -> list:
+#Checks provided list if guess_letter is in the answer and deduces lives for wrong guess
+def guess_letter_round(guessed_letters: list) -> list:
     i = 0
     initial_list = guessed_letters.copy()
     for n in answer:
@@ -59,28 +55,45 @@ def new_round(guessed_letters: list) -> list:
         else:
             guessed_letters[i] = "_"
         i += 1
-
-    print(initial_list)
-    print(guessed_letters)
     if initial_list == guessed_letters:
         global life
         life += -1
     return guessed_letters
 
 
+
+#handles the when the game ends
+def game_end_condition():
+    global game_running
+    if answer == visible_characters and life > 0:  # check if all letters are the same to trigger win and end program
+        game_running = False
+        print("You win")
+    else:
+        game_running = False
+        print("You lose out of lives")
+
+
+word_list = ["shark", "monkey", "hawk"]
+
+life = 6
+# Choosing random word as answer
+index = random.randint(0, len(word_list) - 1)
+answer = word_list[index]
+
 print("Game started")
-foo = ""
-blanks = foo.join(generate_spaces(len(answer)))
+output = ""
+blanks = output.join(generate_underscore_list(len(answer))) # converts list of characters in a string
 print(blanks)
 
-all_letter_found = False
-list_of_guessed_letters = generate_spaces(len(answer))
+game_running = True
+list_of_guessed_letters = generate_underscore_list(len(answer))
 
-while not all_letter_found:
+
+while game_running:
     print("Input letter")
     guess_letter = input().lower()
-    visible_characters = foo.join(new_round(list_of_guessed_letters))
+    visible_characters = output.join(guess_letter_round(list_of_guessed_letters)) # converts list of characters in a string
     print(visible_characters)
     draw_hangman(life)
-    if answer == visible_characters:
-        all_letter_found = True
+
+    game_end_condition()
