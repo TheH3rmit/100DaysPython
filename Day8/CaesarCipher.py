@@ -17,8 +17,8 @@ def decode_message():
 def encrypt_message(message: str, shift: int) -> str:
     output = ""
     for char in message:
-        position = letters.index(char)
-        shifted_position = (position + shift) % 26
+        position = letters.index(char) # Searches for index in letters list assigned to character same as char
+        shifted_position = (position + shift) % 26 # Applies shift to index and prevents going beyond the list of 26 letters
         shifted_letter = letters[shifted_position]
         output += shifted_letter
     return output
@@ -27,8 +27,8 @@ def encrypt_message(message: str, shift: int) -> str:
 def decrypt_message(message: str, shift: int) -> str:
     output = ""
     for char in message:
-        position = letters.index(char) #
-        shifted_position = (position - shift) % 26
+        position = letters.index(char) # Searches for index in letters list assigned to character same as char
+        shifted_position = (position - shift) % 26 # Applies shift to index and prevents going beyond the list of 26 letters
         shifted_letter = letters[shifted_position]
         output += shifted_letter
     return output
