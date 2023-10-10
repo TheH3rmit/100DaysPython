@@ -1,10 +1,10 @@
-
 def encode_message():
     print("Write message to encrypt")
     clear_user_message = input()
     print("Write how much letters to shift")
     cipher_shift = int(input())
-    print(encrypt_message(clear_user_message,cipher_shift))
+    print(encrypt_message(clear_user_message, cipher_shift))
+
 
 def decode_message():
     print("Write message to decrypt")
@@ -13,7 +13,8 @@ def decode_message():
     cipher_shift = int(input())
     print(decrypt_message(encrypted_user_message, cipher_shift))
 
-def encrypt_message(message : str, shift : int) -> str:
+
+def encrypt_message(message: str, shift: int) -> str:
     output = ""
     for char in message:
         number = letters.index(char)
@@ -23,7 +24,7 @@ def encrypt_message(message : str, shift : int) -> str:
     return output
 
 
-def decrypt_message(message : str, shift : int) -> str:
+def decrypt_message(message: str, shift: int) -> str:
     output = ""
     for char in message:
         number = letters.index(char)
@@ -33,13 +34,10 @@ def decrypt_message(message : str, shift : int) -> str:
     return output
 
 
-
-
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-           'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v','w', 'x', 'y', 'z']
+           'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-
-#Main program loop
+# Main program loop
 while True:
     print("Write decode or encode")
     task = input().lower()
