@@ -17,20 +17,20 @@ def decode_message():
 def encrypt_message(message: str, shift: int) -> str:
     output = ""
     for char in message:
-        number = letters.index(char)
-        position = (number + shift) % 26
-        new_letter = letters[position]
-        output += new_letter
+        position = letters.index(char)
+        shifted_position = (position + shift) % 26
+        shifted_letter = letters[shifted_position]
+        output += shifted_letter
     return output
 
 
 def decrypt_message(message: str, shift: int) -> str:
     output = ""
     for char in message:
-        number = letters.index(char)
-        position = (number - shift) % 26
-        new_letter = letters[position]
-        output += new_letter
+        position = letters.index(char) #
+        shifted_position = (position - shift) % 26
+        shifted_letter = letters[shifted_position]
+        output += shifted_letter
     return output
 
 
