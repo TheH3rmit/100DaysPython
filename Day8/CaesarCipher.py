@@ -8,10 +8,10 @@ def encode_message():
 
 def decode_message():
     print("Write message to decrypt")
-    clear_user_message = input()
+    encrypted_user_message = input()
     print("Write how much letters to shift")
     cipher_shift = int(input())
-    decrypt_message(clear_user_message, cipher_shift)
+    print(decrypt_message(encrypted_user_message, cipher_shift))
 
 def encrypt_message(message : str, shift : int) -> str:
     output = ""
@@ -23,8 +23,14 @@ def encrypt_message(message : str, shift : int) -> str:
     return output
 
 
-def decrypt_message(message : str, shift : int) -> list:
-    return
+def decrypt_message(message : str, shift : int) -> str:
+    output = ""
+    for char in message:
+        number = letters.index(char)
+        position = (number - shift) % 26
+        new_letter = letters[position]
+        output += new_letter
+    return output
 
 
 
