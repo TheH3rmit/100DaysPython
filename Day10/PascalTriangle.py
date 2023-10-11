@@ -1,26 +1,21 @@
-rows = 10
-
-triangle = [[0, 0],
-            [0, 1, 0],
-            [0, 1, 2, 1, 0],
-            [0, 1, 3, 3, 1, 0]]
-
-
-def make_pascal_triangle(previous_level=[ 1, 0]):
-    global rows
+def make_pascal_triangle(rows):
+    if rows < 0:
+        raise ValueError("number of rows is negative")
     if rows == 0:
-        return
-    current_level = previous_level.copy()
-    new_level = []
-    new_level.append(0)
-    for n in range(len(current_level) - 1):
-        value1 = current_level[n] + current_level[(n + 1)]
+        return []
+    if rows == 1:
+        return [[1]]
 
-        new_level.append(value1)
-    new_level.append(0)
-    rows -= 1
-    print(current_level)
-    return make_pascal_triangle(new_level)
+    current_level = make_pascal_triangle(rows - 1)
+    new_level = [1]
 
+    for n in range(len(current_level[-1]) - 1):
+        new_level.append(current_level[-1][n] + current_level[-1][n + 1])
 
-make_pascal_triangle()
+    new_level.append(1)
+    triangle = current_level
+    triangle.append(new_level)
+    return triangle
+
+for k in make_pascal_triangle(10):
+    print(k)
