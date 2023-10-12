@@ -1,8 +1,5 @@
 import random
 
-deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11] * 4  # deck of 52
-print(len(deck))
-
 
 def fill_shuffle_deck() -> list:
     global deck
@@ -11,18 +8,15 @@ def fill_shuffle_deck() -> list:
     return new_deck
 
 
+def hit(hand: list):
+    hand.append(playing_deck.pop())
+    evaluate_cards()
+
+
 def hand_distribution():
-    player_hand.append(playing_deck.pop())
-    player_hand.append(playing_deck.pop())
-    dealer_hand.append(playing_deck.pop())
-
-
-def hit():
-    dealer_hand.append(playing_deck.pop())
-
-
-def stand():
-    return
+    hit(player_hand)
+    hit(player_hand)
+    hit(dealer_hand)
 
 
 player_hand = []
@@ -32,40 +26,48 @@ game_finished = False
 
 
 def evaluate_cards():
-    if sum(player_hand) > 21 or sum(dealer_hand) == 21:
-        print("Dealer wins")
-        return False
-    elif sum(player_hand) == 21:
+    if sum(player_hand) == 21 and sum(dealer_hand) == 21:
+        print("Dealer won")
+        new_round_setup()
+    elif sum(player_hand) == 21 or sum(dealer_hand) > 21:
         print("Player won")
-        return False
-    elif sum(player_hand) > sum(dealer_hand) and sum(dealer_hand) < 21:
-        print("Player won")
-        return False
-    elif sum(dealer_hand) > 21:
-        print("Player won")
-        return False
-    else:
-
-        return True
+        new_round_setup()
+    elif sum(dealer_hand) == 21 or sum(player_hand) > 21:
+        print("Dealer won")
+        new_round_setup()
 
 
-while not game_finished:
+def evaluate_game():
+    if sum(dealer_hand) > sum(player_hand):
+        print("Dealer won")
+    elif sum(dealer_hand) < sum(player_hand):
+        print("Player won")
+    new_round_setup()
+
+
+def new_round_setup():
+    global playing_deck
+    player_hand.clear()
+    dealer_hand.clear()
     playing_deck = fill_shuffle_deck()
     hand_distribution()
-    state = True
-    while state:
-        print(f"Dealer cards:{dealer_hand}")
-        print(f"Player cards:{player_hand}")
-        print("Hit or Stand")
-        response = input().lower()
-        if response == "hit":
-            hit()
-        elif response == "stand":
-            stand()
-            if sum(player_hand) > sum(dealer_hand):
-                dealer_hand.append(playing_deck.pop())
+
+
+deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11] * 4  # deck of 52
+playing_deck = []
+
+new_round_setup()
+while not game_finished:
+    print(f"Dealer cards:{dealer_hand}")
+    print(f"Player cards:{player_hand}")
+    print("Hit or Stand")
+    response = input().lower()
+    if response == "hit":
+        hit(player_hand)
+    elif response == "stand":
+        if sum(player_hand) > sum(dealer_hand):
+            hit(dealer_hand)
         else:
-            print("I don't understand")
-        print(f"Dealer cards:{dealer_hand}")
-        print(f"Player cards:{player_hand}")
-        state = evaluate_cards()
+            evaluate_game()
+    else:
+        print("I don't understand")
