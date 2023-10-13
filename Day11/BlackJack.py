@@ -107,4 +107,4 @@ while next_game:
     elif decision == "no":
         exit()
     else:
-        "I don't understand"
+        print("I don't understand")
