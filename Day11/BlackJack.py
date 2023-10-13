@@ -10,7 +10,6 @@ def fill_shuffle_deck() -> list:
 
 def hit(hand: list):
     hand.append(playing_deck.pop())
-    evaluate_cards()
 
 
 def hand_distribution():
@@ -19,30 +18,27 @@ def hand_distribution():
     hit(dealer_hand)
 
 
-player_hand = []
-dealer_hand = []
+def blackjack_check() -> bool:
+    if sum(player_hand) == 21 or sum(dealer_hand) == 21:
+        return True
+    else:
+        return False
 
-game_finished = False
 
-
-def evaluate_cards():
-    if sum(player_hand) == 21 and sum(dealer_hand) == 21:
-        print("Dealer won")
-        new_round_setup()
-    elif sum(player_hand) == 21 or sum(dealer_hand) > 21:
-        print("Player won")
-        new_round_setup()
-    elif sum(dealer_hand) == 21 or sum(player_hand) > 21:
-        print("Dealer won")
-        new_round_setup()
+def bust_check() -> bool:
+    if sum(player_hand) > 21 or sum(dealer_hand) > 21:
+        return True
+    else:
+        return False
 
 
 def evaluate_game():
-    if sum(dealer_hand) > sum(player_hand):
-        print("Dealer won")
-    elif sum(dealer_hand) < sum(player_hand):
-        print("Player won")
-    new_round_setup()
+    if sum(dealer_hand) == sum(player_hand):
+        print("Draw")
+    elif sum(player_hand) < sum(dealer_hand) <= 21 or sum(player_hand) >= 21:
+        print("Lose")
+    elif sum(dealer_hand) < sum(player_hand) <= 21 or sum(dealer_hand) >= 21:
+        print("Win")
 
 
 def new_round_setup():
@@ -53,21 +49,62 @@ def new_round_setup():
     hand_distribution()
 
 
-deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11] * 4  # deck of 52
-playing_deck = []
+def blackjack():
+    new_round_setup()
+    game_active = True
+    show_hands()
+    while game_active:
+        if blackjack_check() or bust_check():
+            break
+        game_active = handle_input()
+    evaluate_game()
 
-new_round_setup()
-while not game_finished:
+
+def show_hands():
     print(f"Dealer cards:{dealer_hand}")
     print(f"Player cards:{player_hand}")
-    print("Hit or Stand")
-    response = input().lower()
-    if response == "hit":
-        hit(player_hand)
-    elif response == "stand":
+
+
+def bot_decision():
+    while True:
         if sum(player_hand) > sum(dealer_hand):
             hit(dealer_hand)
         else:
-            evaluate_game()
+            show_hands()
+            break
+    return False
+
+
+def handle_input():
+    correct_input = False
+    while not correct_input:
+        print("Hit or Stand")
+        response = input().lower()
+        if response == "hit":
+            hit(player_hand)
+            show_hands()
+            if blackjack_check() or bust_check():
+                return False
+        elif response == "stand":
+            return bot_decision()
+        else:
+            print("I don't understand")
+
+
+player_hand = []
+dealer_hand = []
+
+game_finished = False
+deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11] * 4  # deck of 52
+playing_deck = []
+
+next_game = True
+while next_game:
+    print("Do you want to play blackjack YES/NO")
+    decision = input().lower()
+    if decision == "yes":
+        blackjack()
+    elif decision == "no":
+        exit()
     else:
-        print("I don't understand")
+        "I don't understand"
