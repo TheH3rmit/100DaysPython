@@ -49,23 +49,19 @@ def handle_input() -> str:
 
 
 def handle_choice(chosen: str):
+    global choice
     match chosen:
         case "espresso":
-            print("Espresso case")
-            return chosen
+            choice = chosen
         case "latte":
-            print("Latte case")
-            return chosen
+            choice = chosen
         case "cappuccino":
-            print("Cappuccino case")
-            return chosen
+            choice = chosen
         case "report":
-            print("report case")
             resources_report()
         case "off":
-            print("Off case")
             for n in range(5):
-                print(f"Machine shutting down in {5-n} seconds")
+                print(f"Machine shutting down in {5 - n} seconds")
                 time.sleep(1)
             exit(0)
         case _:
@@ -110,12 +106,15 @@ def purchase_check(inserted_coins, chosen_product: str, menu: dict) -> bool:
 profit = 0
 coffee_machine_active = True
 order_in_progress = False
+choice = ""
 while coffee_machine_active:
     if not order_in_progress:
-        choice = handle_input()
-        handle_coins(choice)
-        enough_resources = resources_check(handle_choice(choice), resources, MENU)
-        successful_purchase = purchase_check(handle_coins(), handle_choice(choice), MENU)
-        if enough_resources and successful_purchase:
-            make_coffee(choice, resources, MENU)
-            order_in_progress = False
+        user_input = handle_input()
+        handle_choice(user_input)
+        if choice in MENU:
+            order_in_progress = True
+            enough_resources = resources_check(choice, resources, MENU)
+            successful_purchase = purchase_check(handle_coins(), choice, MENU)
+            if enough_resources and successful_purchase:
+                make_coffee(choice, resources, MENU)
+                order_in_progress = False
