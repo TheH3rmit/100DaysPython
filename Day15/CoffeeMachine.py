@@ -65,7 +65,7 @@ def handle_choice(chosen: str):
                 time.sleep(1)
             exit(0)
         case _:
-            print("default case")
+            print("I don't have this in menu.\nPlease try something else.")
 
 
 def resources_check(chosen_product: str, resources_list: dict, menu: dict) -> bool:
@@ -78,10 +78,10 @@ def resources_check(chosen_product: str, resources_list: dict, menu: dict) -> bo
             return True
 
 
-def make_coffee(chosen_product: str, resources_list: dict, menu: dict) -> str:
+def make_coffee(chosen_product: str, resources_list: dict, menu: dict):
     for i in menu[chosen_product]["ingredients"]:
         resources_list[i] -= menu[chosen_product]["ingredients"][i]
-    return f"Here is your {chosen_product}. Enjoy!"
+    print(f"Here is your {chosen_product}. Enjoy!")
 
 
 def handle_coins() -> float:
@@ -111,10 +111,16 @@ while coffee_machine_active:
     if not order_in_progress:
         user_input = handle_input()
         handle_choice(user_input)
+        enough_resources = False
+        successful_purchase = False
         if choice in MENU:
-            order_in_progress = True
             enough_resources = resources_check(choice, resources, MENU)
-            successful_purchase = purchase_check(handle_coins(), choice, MENU)
-            if enough_resources and successful_purchase:
-                make_coffee(choice, resources, MENU)
-                order_in_progress = False
+            if enough_resources:
+                successful_purchase = purchase_check(handle_coins(), choice, MENU)
+                order_in_progress = True
+            else:
+                choice = ""
+        if enough_resources and successful_purchase:
+            make_coffee(choice, resources, MENU)
+            choice = ""
+            order_in_progress = False
