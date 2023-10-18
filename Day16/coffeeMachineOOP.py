@@ -1,6 +1,7 @@
 from menu import Menu, MenuItem
 from coffeeMaker import CoffeeMaker
 from moneyMachine import MoneyMachine
+import time
 
 menu = Menu()
 coffeeMachine = CoffeeMaker()
@@ -15,11 +16,16 @@ def handle_input() -> str:
 
 while True:
     user_input = handle_input()
-    selected_drink = MenuItem
+
     if user_input == "report":
         coffeeMachine.report()
         moneyMachine.report()
         continue
+    elif user_input == "off":
+        for n in range(5):
+            print(f"Machine shutting down in {5 - n} seconds")
+            time.sleep(1)
+        exit(0)
 
     for item in menu.menu:
         if user_input == item.name:
