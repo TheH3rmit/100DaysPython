@@ -19,6 +19,7 @@ while True:
     if user_input == "report":
         coffeeMachine.report()
         moneyMachine.report()
+        continue
 
     for item in menu.menu:
         if user_input == item.name:
