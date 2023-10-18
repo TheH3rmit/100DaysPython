@@ -20,7 +20,11 @@ class MoneyMachine:
         """Returns the total calculated from coins inserted."""
         print("Please insert coins.")
         for coin in self.COIN_VALUES:
-            self.money_received += int(input(f"How many {coin}?: ")) * self.COIN_VALUES[coin]
+            try:
+                coin_count = int(input(f"How many {coin}?: "))
+                self.money_received += coin_count * self.COIN_VALUES[coin]
+            except ValueError:
+                print(f"Invalid input. Please enter a valid integer for {coin}.")
         return self.money_received
 
     def make_payment(self, cost):
