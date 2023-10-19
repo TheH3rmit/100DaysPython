@@ -11,4 +11,6 @@ manager = QuizManager(question_bank)
 
 while manager.have_questions_check():
     manager.next_question()
-    
+
+print("Quiz completed")
+print(f"Final score {manager.score}/{manager.question_number}")
