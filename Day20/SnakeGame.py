@@ -5,20 +5,18 @@ screen.setup(width=600, height=600)
 screen.bgcolor("black")
 screen.title("Snake")
 
-head = Turtle("square")
-head.color("white")
-head_position = head.pos()
 
-body1 = Turtle("square")
-body1.color("white")
-body1.penup()
-body1.setpos(x=head_position[0] - 20, y=head_position[0])
+starting_positions = [(0, 0), (-20, 0), (-40, 0)]
+snake_parts = []
 
-body2 = Turtle("square")
-body2.color("white")
-body2.penup()
-body2.setpos(x=head_position[0] - 40, y=head_position[0])
+for x in starting_positions:
+    part = Turtle("square")
+    part.color("white")
+    part.penup()
+    part.setpos(x)
 
-snake_parts = [head, body1, body2]
+while True:
+    for i in snake_parts:
+        i.fd(20)
 
 screen.exitonclick()
