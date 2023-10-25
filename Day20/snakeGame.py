@@ -2,6 +2,7 @@ from turtle import Screen
 from snake import Snake
 import time
 
+
 screen = Screen()
 screen.setup(width=600, height=600)
 screen.bgcolor("black")
@@ -11,21 +12,6 @@ screen.tracer(0)
 snake = Snake()
 head = snake.snake_parts[0]
 
-
-def up():
-    head.setheading(90)
-
-
-def down():
-    head.setheading(270)
-
-
-def right():
-    head.setheading(0)
-
-
-def left():
-    head.setheading(180)
 
 
 while True:
