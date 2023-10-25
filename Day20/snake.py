@@ -1,7 +1,6 @@
 from turtle import Turtle
 
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
-snake_parts = []
 MOVE_DISTANCE = 20
 
 
@@ -19,8 +18,8 @@ class Snake:
             self.snake_parts.append(part)
 
     def move(self):
-        for i in range(len(snake_parts) - 1, 0, -1):
-            new_x = snake_parts[i - 1].xcor()
-            new_y = snake_parts[i - 1].ycor()
-            snake_parts[i].goto(new_x, new_y)
-        snake_parts[0].fd(MOVE_DISTANCE)
+        for i in range(len(self.snake_parts) - 1, 0, -1):
+            new_x = self.snake_parts[i - 1].xcor()
+            new_y = self.snake_parts[i - 1].ycor()
+            self.snake_parts[i].goto(new_x, new_y)
+        self.snake_parts[0].fd(MOVE_DISTANCE)
