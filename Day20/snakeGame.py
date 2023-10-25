@@ -12,18 +12,6 @@ snake = Snake()
 head = snake.snake_parts[0]
 
 
-def control(direction):
-    match direction:
-        case "up":
-            head.lt(20)
-        case "down":
-            head.lt(-20)
-        case "right":
-            head.fd(20)
-        case "left":
-            head.lt(20)
-
-
 def up():
     head.setheading(90)
 
