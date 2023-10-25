@@ -3,6 +3,11 @@ from turtle import Turtle
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 MOVE_DISTANCE = 20
 
+UP = 90
+DOWN = 270
+RIGHT = 0
+LEFT = 180
+
 
 class Snake:
     def __init__(self):
@@ -25,16 +30,17 @@ class Snake:
         self.snake_parts[0].fd(MOVE_DISTANCE)
 
     def up(self):
-        self.snake_parts[0].setheading(90)
-
+        if self.snake_parts[0].heading != DOWN:
+            self.snake_parts[0].setheading(UP)
 
     def down(self):
-        self.snake_parts[0].setheading(270)
-
+        if self.snake_parts[0].heading != UP:
+            self.snake_parts[0].setheading(DOWN)
 
     def right(self):
-        self.snake_parts[0].setheading(0)
-
+        if self.snake_parts[0].heading != LEFT:
+            self.snake_parts[0].setheading(RIGHT)
 
     def left(self):
-        self.snake_parts[0].setheading(180)
+        if self.snake_parts[0].heading != RIGHT:
+            self.snake_parts[0].setheading(LEFT)
