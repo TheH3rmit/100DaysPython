@@ -1,4 +1,4 @@
-from turtle import Screen, Turtle
+from turtle import Screen
 from snake import Snake
 import time
 
@@ -9,14 +9,45 @@ screen.title("Snake")
 screen.tracer(0)
 
 snake = Snake()
+head = snake.snake_parts[0]
 
 
+def control(direction):
+    match direction:
+        case "up":
+            head.lt(20)
+        case "down":
+            head.lt(-20)
+        case "right":
+            head.fd(20)
+        case "left":
+            head.lt(20)
 
-screen.update()
+
+def up():
+    head.setheading(90)
+
+
+def down():
+    head.setheading(270)
+
+
+def right():
+    head.setheading(0)
+
+
+def left():
+    head.setheading(180)
+
 
 while True:
+    screen.onkey(up, "w")
+    screen.onkey(down, "s")
+    screen.onkey(right, "d")
+    screen.onkey(left, "a")
+    screen.listen()
     screen.update()
     time.sleep(0.1)
     snake.move()
 
-screen.exitonclick()
+# screen.exitonclick()
