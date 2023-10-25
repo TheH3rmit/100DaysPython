@@ -29,10 +29,10 @@ def left():
 
 
 while True:
-    screen.onkey(up, "w")
-    screen.onkey(down, "s")
-    screen.onkey(right, "d")
-    screen.onkey(left, "a")
+    screen.onkey(snake.up, "w")
+    screen.onkey(snake.down, "s")
+    screen.onkey(snake.right, "d")
+    screen.onkey(snake.left, "a")
     screen.listen()
     screen.update()
     time.sleep(0.1)
