@@ -10,11 +10,11 @@ screen.bgcolor("black")
 screen.title("Snake")
 screen.tracer(0)
 
+game_status = True
 snake = Snake()
 food = Food()
 scoreboard = Scoreboard()
 head = snake.snake_parts[0]
-
 
 screen.listen()
 screen.onkey(snake.up, "w")
@@ -29,10 +29,22 @@ def food_collision():
         food.food_eaten()
 
 
-while True:
+def wall_collision():
+    global game_status
+    if head.xcor() > 280 or head.xcor() < -280 or head.ycor() > 280 or head.ycor() < -280:
+        game_status = False
+
+
+# def body_collision():
+#     global game_status
+#     if
+
+while game_status:
+    wall_collision()
     food_collision()
     screen.update()
     time.sleep(0.1)
     snake.move()
+scoreboard.game_over()
 
-# screen.exitonclick()
+screen.exitonclick()
