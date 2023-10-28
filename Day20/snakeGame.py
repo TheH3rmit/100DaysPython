@@ -1,3 +1,4 @@
+import turtle
 from turtle import Screen
 from snake import Snake
 import time
@@ -19,7 +20,15 @@ screen.onkey(snake.down, "s")
 screen.onkey(snake.right, "d")
 screen.onkey(snake.left, "a")
 
+
+def food_collision():
+    if head.distance(food) < 15:
+        print("eaten")
+        food.food_eaten()
+
+
 while True:
+    food_collision()
     screen.update()
     time.sleep(0.1)
     snake.move()
