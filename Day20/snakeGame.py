@@ -12,14 +12,13 @@ screen.tracer(0)
 snake = Snake()
 head = snake.snake_parts[0]
 
-
+screen.listen()
+screen.onkey(snake.up, "w")
+screen.onkey(snake.down, "s")
+screen.onkey(snake.right, "d")
+screen.onkey(snake.left, "a")
 
 while True:
-    screen.onkey(snake.up, "w")
-    screen.onkey(snake.down, "s")
-    screen.onkey(snake.right, "d")
-    screen.onkey(snake.left, "a")
-    screen.listen()
     screen.update()
     time.sleep(0.1)
     snake.move()
