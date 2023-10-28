@@ -22,6 +22,15 @@ class Snake:
             part.setpos(x)
             self.snake_parts.append(part)
 
+    def add_body(self):
+        part = Turtle("square")
+        part.color("white")
+        part.penup()
+        position_last_part = self.snake_parts[-1].pos()  # position of last snake part before update
+        next_part_position_offset = (-10, -10)
+        part.setpos(position_last_part-next_part_position_offset)
+        self.snake_parts.append(part)
+
     def move(self):
         for i in range(len(self.snake_parts) - 1, 0, -1):
             new_x = self.snake_parts[i - 1].xcor()

@@ -27,6 +27,7 @@ def food_collision():
     if head.distance(food) < 15:
         scoreboard.add_point()
         food.food_eaten()
+        snake.add_body()
 
 
 def wall_collision():
