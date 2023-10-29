@@ -15,21 +15,19 @@ class Snake:
         self.create_body()
 
     def create_body(self):
-        for x in STARTING_POSITIONS:
-            part = Turtle("square")
-            part.color("white")
-            part.penup()
-            part.setpos(x)
-            self.snake_parts.append(part)
+        for position in STARTING_POSITIONS:
+            self.add_body(position)
 
-    def add_body(self):
+    def add_body(self, position):
         part = Turtle("square")
         part.color("white")
         part.penup()
-        position_last_part = self.snake_parts[-1].pos()  # position of last snake part before update
-        next_part_position_offset = (-10, -10)
-        part.setpos(position_last_part-next_part_position_offset)
+        part.setpos(position)
         self.snake_parts.append(part)
+
+    def extend_body(self):
+        position_last_part = self.snake_parts[-1].pos()
+        self.add_body(position_last_part)
 
     def move(self):
         for i in range(len(self.snake_parts) - 1, 0, -1):
