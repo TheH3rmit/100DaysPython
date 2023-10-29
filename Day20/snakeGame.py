@@ -38,10 +38,8 @@ def wall_collision():
 
 def body_collision():
     global game_status
-    for body_parts in snake.snake_parts:
-        if body_parts == head:
-            pass
-        elif head.distance(body_parts) < 10:
+    for body_parts in snake.snake_parts[1:-1]:
+        if head.distance(body_parts) < 10:
             game_status = False
 
 
