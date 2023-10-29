@@ -27,7 +27,7 @@ def food_collision():
     if head.distance(food) < 15:
         scoreboard.add_point()
         food.food_eaten()
-        snake.add_body()
+        snake.extend_body()
 
 
 def wall_collision():
@@ -36,11 +36,15 @@ def wall_collision():
         game_status = False
 
 
-# def body_collision():
-#     global game_status
-#     if
+def body_collision():
+    global game_status
+    for body_position in snake.snake_parts:
+        if head.position() == body_position:
+            game_status = False
+
 
 while game_status:
+    body_collision()
     wall_collision()
     food_collision()
     screen.update()
