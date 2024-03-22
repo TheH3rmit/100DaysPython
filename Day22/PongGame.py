@@ -18,6 +18,11 @@
     #player 1 and 2 input
     #AI input
 
+#Mechanics
+    #paddle movement
+    #ball movement
+    #collision with walls and bounce
+
 #Game loop
     #Game is launched
     #Proceeds to the mainboard
@@ -27,3 +32,6 @@
     #Players or Player and AI play
     #Victory criteria is met (time, points)
     #Restart or quit option visible
+
+#What I will use
+    #Tinker
